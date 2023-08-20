@@ -28,7 +28,7 @@ const Card = ({ movieData, isLiked = false }) => {
 
     const addToList = async () => {
         try {
-            await axios.post(`${process.env.BACKEND_URL}/api/user/add`, {
+            await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/user/add`, {
                 email,
                 data: movieData
             })
