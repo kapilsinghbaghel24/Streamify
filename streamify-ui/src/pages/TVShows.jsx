@@ -9,6 +9,7 @@ import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import NotAvailable from "../components/NotAvailable";
 import SelectGenre from "../components/SelectGenre";
+import { clearData } from '../store';
 
 
 const Movies = () => {
@@ -23,10 +24,14 @@ const Movies = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getGenres());
+        return () => dispatch(clearData());
+
     }, [dispatch]);
 
     useEffect(() => {
         if (genresLoaded) dispatch(fetchMovies({ type: "tv" }));
+        return () => dispatch(clearData());
+
     }, [dispatch, genresLoaded])
 
     window.onscroll = () => {

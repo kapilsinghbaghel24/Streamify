@@ -73,6 +73,12 @@ export const removeMovieFromLiked = createAsyncThunk("streamify/deleteLiked", as
 const StreamifySlice = createSlice({
     name: "Streamify",
     initialState,
+    reducers: {
+        clearData: (state) => {
+            state.movies = [];
+            state.genresLoaded = false;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(getGenres.fulfilled, (state, action) => {
             state.genres = action.payload;
@@ -98,3 +104,5 @@ export const store = configureStore({
         streamify: StreamifySlice.reducer,
     }
 });
+
+export const { clearData } = StreamifySlice.actions;

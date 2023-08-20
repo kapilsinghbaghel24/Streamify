@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchMovies, getGenres } from "../store";
+import { fetchMovies, getGenres, clearData } from "../store";
 import { onAuthStateChanged } from "firebase/auth";
 import { firebaseAuth } from "../utils/firebase-config";
 import { styled } from "styled-components";
@@ -23,10 +23,14 @@ const Movies = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getGenres());
+        return () => dispatch(clearData());
+
     }, [dispatch]);
 
     useEffect(() => {
         if (genresLoaded) dispatch(fetchMovies({ type: "movie" }));
+        return () => dispatch(clearData());
+
     }, [dispatch, genresLoaded])
 
     window.onscroll = () => {

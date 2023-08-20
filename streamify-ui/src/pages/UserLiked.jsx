@@ -7,6 +7,7 @@ import { firebaseAuth } from "../utils/firebase-config";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
+import { clearData } from "../store";
 
 const UserLiked = () => {
     const navigate = useNavigate();
@@ -27,6 +28,8 @@ const UserLiked = () => {
         if (email) {
             dispatch(getUserLikedMovies(email));
         }
+        return () => dispatch(clearData());
+
     }, [dispatch, email]);
 
 

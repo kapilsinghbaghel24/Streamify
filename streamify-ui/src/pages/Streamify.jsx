@@ -7,7 +7,7 @@ import { FaPlay } from 'react-icons/fa';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchMovies, getGenres } from "../store";
+import { fetchMovies, getGenres, clearData } from "../store";
 import Slider from "../components/Slider";
 
 const Streamify = () => {
@@ -21,10 +21,14 @@ const Streamify = () => {
 
     useEffect(() => {
         dispatch(getGenres());
+
+        return () => dispatch(clearData());
     }, [dispatch]);
 
     useEffect(() => {
         if (genresLoaded) dispatch(fetchMovies({ type: "all" }));
+
+        return () => dispatch(clearData());
     }, [dispatch, genresLoaded])
 
     window.onscroll = () => {
